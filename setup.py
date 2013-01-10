@@ -8,7 +8,7 @@ module = Extension(
     include_dirs = [".", "../udt4/src"],
     libraries = ['udt'],
     library_dirs = ['../udt4/src'],
-    extra_link_args = ['-Wl,-R../udt4/src/'],
+    extra_link_args = ['-Wl,-R../udt4/src/', '-lresolv'],
 )
 
 setup (
