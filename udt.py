@@ -16,10 +16,10 @@ class socket(_udt.socket):
 
     def _get_addr(self, (host, port)):
         family, socktype, proto, name, addr = socketlib.getaddrinfo(
-            host, 
-            port, 
+            host,
+            port,
             self.family,
-            0,
+            socketlib.SOCK_STREAM,
             self.proto,
             0
         )[0]
@@ -38,11 +38,11 @@ class epoll(_udt.epoll):
         # according to the docs, adding flags is not supported
         rv = _udt.epoll.add_usock(self, s, events)
         return rv
-        
+
     def add_ssock(self, s, events):
         rv = _udt.epoll.add_ssock(self, s, events)
         return rv
-    
+
     def remove_usock(self, s, events):
         rv = _udt.epoll.remove_usock(self, s, events)
         return rv
