@@ -869,8 +869,6 @@ PY_TRY_CXX
         case UDT_MAXBW:
         {
             long int opt_val;
-            int64_t opt_val;
-            int64_t opt_val;
             if(!PyArg_ParseTuple(args, "iil", &level, &opt_name, &opt_val))
             {   
                 return NULL;
