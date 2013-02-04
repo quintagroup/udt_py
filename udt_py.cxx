@@ -868,6 +868,8 @@ PY_TRY_CXX
         }
         case UDT_MAXBW:
         {
+            long int opt_val;
+            int64_t opt_val;
             int64_t opt_val;
             if(!PyArg_ParseTuple(args, "iil", &level, &opt_name, &opt_val))
             {   
@@ -875,7 +877,7 @@ PY_TRY_CXX
             }
 
             if (UDT::setsockopt(py_socket->cc_socket, 
-                    level, switch_opt, &opt_val, sizeof(int64_t)) == UDT::ERROR)
+                    level, switch_opt, new int64_t(opt_val), sizeof(int64_t)) == UDT::ERROR)
             {
                 throw py_udt_error();
             }
