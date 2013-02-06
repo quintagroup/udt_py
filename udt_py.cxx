@@ -1187,15 +1187,14 @@ static PyObject* pyudt_epoll_remove_usock(PyObject *self, PyObject *args, PyObje
 {
 PY_TRY_CXX
     int eid = ((pyudt_epoll_object*)self)->eid;
-    int events = 0;
     int fileno = 0;
 
-    if(!PyArg_ParseTuple(args, "ii", &fileno, &events))
+    if(!PyArg_ParseTuple(args, "i", &fileno))
     {
         return NULL;
     }
 
-    int rv = UDT::epoll_remove_usock(eid, fileno, &events);
+    int rv = UDT::epoll_remove_usock(eid, fileno);
 
     if(rv < 0)
     {
@@ -1211,15 +1210,14 @@ static PyObject* pyudt_epoll_remove_ssock(PyObject *self, PyObject *args, PyObje
 {
 PY_TRY_CXX
     int eid = ((pyudt_epoll_object*)self)->eid;
-    int events = 0;
     int fileno = 0;
 
-    if(!PyArg_ParseTuple(args, "ii", &fileno, &events))
+    if(!PyArg_ParseTuple(args, "i", &fileno))
     {
         return NULL;
     }
     
-    int rv = UDT::epoll_remove_ssock(eid, fileno, &events);
+    int rv = UDT::epoll_remove_ssock(eid, fileno);
 
     if(rv < 0)
     {

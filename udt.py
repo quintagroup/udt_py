@@ -25,6 +25,7 @@ class socket(_udt.socket):
         )[0]
         return addr
 
+
 class epoll(_udt.epoll):
     def __init__(self):
         _udt.epoll.__init__(self)
@@ -43,10 +44,10 @@ class epoll(_udt.epoll):
         rv = _udt.epoll.add_ssock(self, s, events)
         return rv
 
-    def remove_usock(self, s, events):
-        rv = _udt.epoll.remove_usock(self, s, events)
+    def remove_usock(self, s):
+        rv = _udt.epoll.remove_usock(self, s)
         return rv
 
-    def remove_ssock(self, s, events):
-        rv = _udt.epoll.remove_ssock(self, s, events)
+    def remove_ssock(self, s):
+        rv = _udt.epoll.remove_ssock(self, s)
         return rv
