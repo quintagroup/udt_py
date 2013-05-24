@@ -41,7 +41,7 @@ class AutoDecref
 
 typedef struct 
 {
-    PyObject_HEAD;
+    PyObject_HEAD
     UDTSOCKET cc_socket;
     int family;
     int type; 
@@ -51,7 +51,7 @@ typedef struct
 
 typedef struct 
 {
-    PyObject_HEAD;
+    PyObject_HEAD
     int eid;
 } pyudt_epoll_object;
 
