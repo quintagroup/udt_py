@@ -51,9 +51,9 @@ catch(...) \
 }
 
 
-AutoDecref::AutoDecref(PyObject *ptr)
+AutoDecref::AutoDecref(PyObject *p)
 {
-    this->ptr = ptr;   
+    this->ptr = p;   
 }
 
 AutoDecref::~AutoDecref()
