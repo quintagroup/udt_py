@@ -582,6 +582,15 @@ PY_TRY_CXX
 PY_CATCH_CXX(NULL)
 }
 
+PyObject* pyudt_socket_getlasterror(PyObject *self, PyObject *args, PyObject *kwargs)
+{
+PY_TRY_CXX
+    UDT::ERRORINFO& udt_err = UDT::getlasterror();
+    UDT::getlasterror().clear();
+    return Py_BuildValue("is", udt_err.getErrorMessage(), udt_err.getErrorMessage());
+PY_CATCH_CXX(NULL)
+}
+
 PyObject* pyudt_socket_perfmon(PyObject *self, PyObject *args, PyObject *kwargs)
 {
 PY_TRY_CXX
@@ -868,14 +877,14 @@ PY_TRY_CXX
         }
         case UDT_MAXBW:
         {
-            long int opt_val;
+            int64_t opt_val;
             if(!PyArg_ParseTuple(args, "iil", &level, &opt_name, &opt_val))
             {   
                 return NULL;
             }
 
             if (UDT::setsockopt(py_socket->cc_socket, 
-                    level, switch_opt, new int64_t(opt_val), sizeof(int64_t)) == UDT::ERROR)
+                    level, switch_opt, &opt_val, sizeof(int64_t)) == UDT::ERROR)
             {
                 throw py_udt_error();
             }
@@ -961,6 +970,12 @@ static PyMethodDef pyudt_socket_methods[] = {
         (PyCFunction)pyudt_socket_recvmsg, 
         METH_VARARGS, 
         "recv msg"
+    },
+    {
+        "getlasterror",
+        (PyCFunction)pyudt_socket_getlasterror,
+        METH_VARARGS,
+        "get last error"
     },
     {
         "perfmon",  
@@ -1194,6 +1209,7 @@ PY_TRY_CXX
         return NULL;
     }
 
+//    int rv = UDT::epoll_remove_usock(eid, fileno, &events);
     int rv = UDT::epoll_remove_usock(eid, fileno);
 
     if(rv < 0)
@@ -1217,6 +1233,7 @@ PY_TRY_CXX
         return NULL;
     }
     
+//    int rv = UDT::epoll_remove_ssock(eid, fileno, &events);
     int rv = UDT::epoll_remove_ssock(eid, fileno);
 
     if(rv < 0)
