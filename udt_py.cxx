@@ -1308,6 +1308,7 @@ PY_TRY_CXX
         {
             return NULL;
         }
+        Py_DECREF(i);
     }
 
     for(usock_iter = w_usock_out.begin(); usock_iter != w_usock_out.end(); ++usock_iter)
@@ -1324,6 +1325,7 @@ PY_TRY_CXX
         {
             return NULL;
         }
+        Py_DECREF(i);
     }
 
     std::set<UDTSOCKET>::const_iterator ssock_iter;
@@ -1341,6 +1343,7 @@ PY_TRY_CXX
         {
             return NULL;
         }
+        Py_DECREF(i);
     }
 
     for(ssock_iter = w_ssock_out.begin(); ssock_iter != w_ssock_out.end(); ++ssock_iter)
@@ -1357,6 +1360,7 @@ PY_TRY_CXX
         {
             return NULL;
         }
+        Py_DECREF(i);
     }
 
     PyObject *ret = Py_BuildValue(
