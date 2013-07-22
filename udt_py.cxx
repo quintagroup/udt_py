@@ -1328,7 +1328,7 @@ PY_TRY_CXX
         Py_DECREF(i);
     }
 
-    std::set<UDTSOCKET>::const_iterator ssock_iter;
+    std::set<SYSSOCKET>::const_iterator ssock_iter;
     for(ssock_iter = r_ssock_out.begin(); ssock_iter != r_ssock_out.end(); ++ssock_iter)
     {
 
