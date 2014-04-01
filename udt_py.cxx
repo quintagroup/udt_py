@@ -1276,7 +1276,7 @@ PY_TRY_CXX
 
     int eid = ((pyudt_epoll_object*)self)->eid;
 
-    if(!PyArg_ParseTuple(args, "i", &timeout))
+    if(!PyArg_ParseTuple(args, "l", &timeout))
     {
         return NULL;
     }
@@ -1417,7 +1417,7 @@ PY_TRY_CXX
 
     int eid = ((pyudt_epoll_object*)self)->eid;
 
-    if(!PyArg_ParseTuple(args, "i", &timeout))
+    if(!PyArg_ParseTuple(args, "l", &timeout))
     {
         return NULL;
     }
