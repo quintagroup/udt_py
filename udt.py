@@ -6,6 +6,18 @@ from _udt import *
 import _udt
 
 
+class UDTSTATUS(object):
+    INIT = 1
+    OPENED = 2
+    LISTENING = 3
+    CONNECTING = 4
+    CONNECTED = 5
+    BROKEN = 6
+    CLOSING = 7
+    CLOSED = 8
+    NONEXIST = 9
+
+
 class socket(_udt.socket):
     def connect(self, addr):
         conn_addr = self._get_addr(addr)

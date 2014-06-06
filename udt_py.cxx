@@ -709,6 +709,21 @@ PY_TRY_CXX
     UDT::SOCKOPT switch_opt = (UDT::SOCKOPT)opt_name;
     switch(switch_opt)
     {
+        case UDT_STATE:
+        case UDT_EVENT:
+        case UDT_SNDDATA:
+        case UDT_RCVDATA:
+        {
+            int32_t opt_val = 0;
+            if (UDT::getsockopt(
+                py_socket->cc_socket,
+                level, switch_opt, &opt_val, &opt_len) == UDT::ERROR)
+            {
+                throw py_udt_error();
+            }
+            return Py_BuildValue("i", opt_val);
+            break;
+        }
         case UDT_MSS:
         case UDT_FC:
         case UDT_SNDBUF:
@@ -1614,6 +1629,11 @@ init_udt(void)
     Py_INCREF(&pyudt_epoll_type);
     PyModule_AddObject(module, "socket", (PyObject *)&pyudt_socket_type);
     PyModule_AddObject(module, "epoll",  (PyObject *)&pyudt_epoll_type);
+
+    if(PyModule_AddIntConstant(module, "UDT_STATE",       UDT_STATE)    == -1   ) {return;}
+    if(PyModule_AddIntConstant(module, "UDT_EVENT",       UDT_EVENT)    == -1   ) {return;}
+    if(PyModule_AddIntConstant(module, "UDT_SNDDATA",     UDT_SNDDATA)  == -1   ) {return;}
+    if(PyModule_AddIntConstant(module, "UDT_RCVDATA",     UDT_RCVDATA)  == -1   ) {return;}
 
     if(PyModule_AddIntConstant(module, "UDT_MSS",         UDT_MSS)      == -1   ) {return;}
     if(PyModule_AddIntConstant(module, "UDT_SNDSYN",      UDT_SNDSYN)   == -1   ) {return;}
