@@ -1,19 +1,14 @@
 from distutils.core import setup, Extension
 import os
 
-dir_file = os.path.join(os.path.dirname(__file__))
+udt_dir = os.path.join(os.path.dirname(__file__),'..', 'udt', 'udt4', 'src')
 
 module = Extension(
     '_udt',
     sources=['udt_py.cxx'],
-    include_dirs=[".", os.path.abspath(os.path.join(dir_file,
-                                                    '..', 'udt4/src'))],
-    libraries=['udt'],
-    library_dirs=[os.path.abspath(os.path.join(dir_file,
-                                               '..', 'udt4/src'))],
-    extra_link_args=['-Wl,-R' + os.path.abspath(os.path.join(dir_file,
-                                                '..', 'udt4/src')),
-                     '-lresolv']
+    include_dirs=[".", udt_dir],
+    libraries=['resolv', 'socket', 'rt', 'Cstd'] if os.uname()[0] == 'SunOS' else ['resolv'],
+    extra_objects=[os.path.join(udt_dir, 'libudt.a')],
 )
 
 setup(

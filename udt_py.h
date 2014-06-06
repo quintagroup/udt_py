@@ -1,12 +1,13 @@
 #include <Python.h>
 #include <udt.h>
+#include <ccc.h>
 #include <map>
 
 typedef struct py_udt_error        : std::exception {} py_udt_error;
 typedef struct cc_general_error    : std::exception {} cc_general_error;
 
-/* 
-    FIXME - Need to implement GIL handling 
+/*
+    FIXME - Need to implement GIL handling
 */
 class AutoGILCallOut
 {
@@ -23,7 +24,7 @@ class AutoGILCallBack
     public:
         AutoGILCallBack();
         ~AutoGILCallBack();
-    
+
     private:
         PyGILState_STATE  state;
 };
@@ -39,19 +40,19 @@ class AutoDecref
         PyObject *ptr;
 };
 
-typedef struct 
+typedef struct
 {
-    PyObject_HEAD;
+    PyObject_HEAD
     UDTSOCKET cc_socket;
     int family;
-    int type; 
+    int type;
     int proto;
 
 } pyudt_socket_object;
 
-typedef struct 
+typedef struct
 {
-    PyObject_HEAD;
+    PyObject_HEAD
     int eid;
 } pyudt_epoll_object;
 
@@ -70,6 +71,6 @@ class RecvBuffer
         char *head;
         unsigned int max_buf_len;
         unsigned int buf_len;
-        
-    
+
+
 };

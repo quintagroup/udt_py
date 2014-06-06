@@ -5,6 +5,19 @@ import socket as socketlib
 from _udt import *
 import _udt
 
+
+class UDTSTATUS(object):
+    INIT = 1
+    OPENED = 2
+    LISTENING = 3
+    CONNECTING = 4
+    CONNECTED = 5
+    BROKEN = 6
+    CLOSING = 7
+    CLOSED = 8
+    NONEXIST = 9
+
+
 class socket(_udt.socket):
     def connect(self, addr):
         conn_addr = self._get_addr(addr)
@@ -25,6 +38,7 @@ class socket(_udt.socket):
         )[0]
         return addr
 
+
 class epoll(_udt.epoll):
     def __init__(self):
         _udt.epoll.__init__(self)
@@ -43,10 +57,10 @@ class epoll(_udt.epoll):
         rv = _udt.epoll.add_ssock(self, s, events)
         return rv
 
-    def remove_usock(self, s, events):
-        rv = _udt.epoll.remove_usock(self, s, events)
+    def remove_usock(self, s):
+        rv = _udt.epoll.remove_usock(self, s)
         return rv
 
-    def remove_ssock(self, s, events):
-        rv = _udt.epoll.remove_ssock(self, s, events)
+    def remove_ssock(self, s):
+        rv = _udt.epoll.remove_ssock(self, s)
         return rv
